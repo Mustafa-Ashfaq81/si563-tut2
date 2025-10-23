@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SI 563 Tutorial 2</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .problem-container {
+            background: white;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .question-text {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .tasks {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .tasks h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+        .answer-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .answer-button:hover {
+            background: #2980b9;
+        }
+        .answer-button:active {
+            background: #1c5f87;
+        }
+        .answer-section {
+            display: none;
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+            margin: 20px 0;
+        }
+        .answer-section.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .answer-section h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .answer-section p {
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+        .answer-section ul {
+            line-height: 1.8;
+        }
+        @media print {
+            .problem-container {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .answer-button {
+                display: none;
+            }
+            .answer-section {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>SI 563 Tutorial 2</h1>
+    
+    <div class="problem-container">
+        <h2>Problem 1: Identical Payoffs Case (20 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider the following sequential game represented by the game tree below:</p>
+        </div>
+        
+        <canvas id="tree1" width="600" height="450"></canvas>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <ul>
+                <li>Player 1 moves first and chooses either <strong>L</strong> (left) or <strong>R</strong> (right)</li>
+                <li>If Player 1 chooses <strong>R</strong>, the game ends with payoffs <strong>(1, 1)</strong></li>
+                <li>If Player 1 chooses <strong>L</strong>, Player 2 observes this choice and then chooses either <strong>U</strong> (up) or <strong>D</strong> (down)</li>
+                <li>If Player 2 chooses <strong>U</strong>, the payoffs are <strong>(1, 2)</strong></li>
+                <li>If Player 2 chooses <strong>D</strong>, the payoffs are <strong>(1, 0)</strong></li>
+                <li>Payoffs are written as (Player 1, Player 2)</li>
+            </ul>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Identify all subgames in this game tree. (4 points)</p>
+            <p><strong>(b)</strong> Use backward induction to solve for the Subgame Perfect Nash Equilibrium (SPNE). Show your work clearly. (8 points)</p>
+            <p><strong>(c)</strong> State the complete SPNE strategy profile for both players. (4 points)</p>
+            <p><strong>(d)</strong> What are the equilibrium payoffs? (2 points)</p>
+            <p><strong>(e)</strong> Is there a Nash equilibrium of the entire game that is NOT subgame perfect? If so, identify it and explain why it's not subgame perfect. (2 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer1')">Show/Hide Answer</button>
+        
+        <div id="answer1" class="answer-section">
+            <h3>Solution to Problem 1:</h3>
+            
+            <p><strong>(a) Subgames:</strong></p>
+            <p>There are <strong>2 subgames (1 proper subgame)</strong>:</p>
+            <ul>
+                <li>The entire game (starting at Player 1's initial node)</li>
+                <li>The proper subgame starting at Player 2's decision node (after Player 1 chooses L)</li>
+            </ul>
+            
+            <p><strong>(b) Backward Induction:</strong></p>
+            <p><strong>Stage 2 (Player 2's subgame after L):</strong></p>
+            <p>Player 2 compares:</p>
+            <ul>
+                <li>Choosing U: payoff = 2</li>
+                <li>Choosing D: payoff = 0</li>
+            </ul>
+            <p>Since 2 > 0, Player 2's best response is <strong>U</strong>.</p>
+            
+            <p><strong>Stage 1 (Player 1's choice):</strong></p>
+            <p>Knowing Player 2 will choose U if the subgame is reached, Player 1 compares:</p>
+            <ul>
+                <li>Choosing L: leads to (1, 2) after Player 2 chooses U → payoff = 1</li>
+                <li>Choosing R: leads directly to (1, 1) → payoff = 1</li>
+            </ul>
+            <p>Player 1 is <strong>indifferent</strong> between L and R (both give payoff 1). However, both are part of valid SPNEs.</p>
+            
+            <p><strong>(c) SPNE Strategy Profile:</strong></p>
+            <p>There are <strong>two SPNEs</strong>:</p>
+            <ul>
+                <li><strong>SPNE 1:</strong> (L; U) - "Player 1 chooses L; Player 2 chooses U"</li>
+                <li><strong>SPNE 2:</strong> (R; U) - "Player 1 chooses R; Player 2 chooses U"</li>
+            </ul>
+            <p>Note: Player 2's strategy must specify U because that's the best response in the subgame, even if the subgame is not reached on the equilibrium path.</p>
+            
+            <p><strong>(d) Equilibrium Payoffs:</strong></p>
+            <ul>
+                <li>Under SPNE 1 (L; U): <strong>(1, 2)</strong></li>
+                <li>Under SPNE 2 (R; U): <strong>(1, 1)</strong></li>
+            </ul>
+            
+            <p><strong>(e) Non-Subgame Perfect Nash Equilibrium:</strong></p>
+            <p><strong>Yes</strong>, there exists a Nash equilibrium that is NOT subgame perfect:</p>
+            <p><strong>(R; D)</strong> - "Player 1 chooses R; Player 2 chooses D"</p>
+            
+            <p><strong>Why it's a Nash Equilibrium:</strong></p>
+            <ul>
+                <li>Given Player 2 plays D, Player 1's payoff from L is 1 (leading to (1,0)), and from R is 1. Player 1 is indifferent and has no incentive to deviate to L.</li>
+                <li>Given Player 1 plays R, the subgame is never reached, so Player 2's choice is irrelevant on the equilibrium path. D is a valid strategy (though not optimal if the subgame were reached).</li>
+            </ul>
+            
+            <p><strong>Why it's NOT Subgame Perfect:</strong></p>
+            <p>In the subgame after L is chosen, Player 2's strategy D is <strong>not a best response</strong>. Choosing D gives Player 2 a payoff of 0, while choosing U gives 2. The strategy D involves a <strong>non-credible threat</strong>—Player 2 threatens to play D to deter Player 1 from choosing L, but if Player 1 actually chose L, Player 2 would prefer to play U. This violates the subgame perfection requirement that strategies must constitute a Nash equilibrium in every subgame.</p>
+        </div>
+    </div>
+
+    <div class="problem-container">
+        <h2>Problem 2: Multiple Subgames Case (25 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider the following sequential game represented by the game tree below:</p>
+        </div>
+        
+        <canvas id="tree2" width="700" height="500"></canvas>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <ul>
+                <li>Player 1 moves first and chooses either <strong>Z</strong> or <strong>W</strong></li>
+                <li>If Player 1 chooses <strong>Z</strong>, Player 2 observes this and chooses between <strong>A</strong> or <strong>B</strong>:
+                    <ul>
+                        <li>If Player 2 chooses <strong>A</strong>, payoffs are <strong>(6, 4)</strong></li>
+                        <li>If Player 2 chooses <strong>B</strong>, payoffs are <strong>(3, 2)</strong></li>
+                    </ul>
+                </li>
+                <li>If Player 1 chooses <strong>W</strong>, Player 2 observes this and chooses between <strong>C</strong> or <strong>D</strong>:
+                    <ul>
+                        <li>If Player 2 chooses <strong>C</strong>, payoffs are <strong>(4, 6)</strong></li>
+                        <li>If Player 2 chooses <strong>D</strong>, payoffs are <strong>(2, 1)</strong></li>
+                    </ul>
+                </li>
+                <li>Payoffs are written as (Player 1, Player 2)</li>
+            </ul>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Identify all subgames in this game tree. (5 points)</p>
+            <p><strong>(b)</strong> For each subgame, find the Nash equilibrium. Show your reasoning. (8 points)</p>
+            <p><strong>(c)</strong> Use backward induction to find the Subgame Perfect Nash Equilibrium (SPNE) of the entire game. (7 points)</p>
+            <p><strong>(d)</strong> State the complete SPNE strategy profile in the form: (Player 1's choice; Player 2's choice after Z, Player 2's choice after W). (3 points)</p>
+            <p><strong>(e)</strong> What are the equilibrium payoffs on the equilibrium path? (2 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer2')">Show/Hide Answer</button>
+        
+        <div id="answer2" class="answer-section">
+            <h3>Solution to Problem 2:</h3>
+            
+            <p><strong>(a) Subgames:</strong></p>
+            <p>There are <strong>3 subgames (2 proper subgames)</strong>:</p>
+            <ul>
+                <li>The entire game (starting at Player 1's initial node)</li>
+                <li>Proper Subgame 1: Starting at Player 2's decision node after Player 1 chooses Z</li>
+                <li>Proper Subgame 2: Starting at Player 2's decision node after Player 1 chooses W</li>
+            </ul>
+            
+            <p><strong>(b) Nash Equilibrium in Each Subgame:</strong></p>
+            
+            <p><strong>Subgame 1 (after Z):</strong></p>
+            <p>Player 2 compares:</p>
+            <ul>
+                <li>Choosing A: payoff = 4</li>
+                <li>Choosing B: payoff = 2</li>
+            </ul>
+            <p>Since 4 > 2, Player 2's best response is <strong>A</strong>.</p>
+            <p><strong>Nash equilibrium in Subgame 1: A</strong></p>
+            
+            <p><strong>Subgame 2 (after W):</strong></p>
+            <p>Player 2 compares:</p>
+            <ul>
+                <li>Choosing C: payoff = 6</li>
+                <li>Choosing D: payoff = 1</li>
+            </ul>
+            <p>Since 6 > 1, Player 2's best response is <strong>C</strong>.</p>
+            <p><strong>Nash equilibrium in Subgame 2: C</strong></p>
+            
+            <p><strong>(c) Backward Induction for SPNE:</strong></p>
+            <p>Now that we know Player 2 will choose A after Z and C after W, Player 1 anticipates:</p>
+            <ul>
+                <li>Choosing Z: leads to outcome (6, 4) → Player 1 gets 6</li>
+                <li>Choosing W: leads to outcome (4, 6) → Player 1 gets 4</li>
+            </ul>
+            <p>Since 6 > 4, Player 1's optimal choice is <strong>Z</strong>.</p>
+            
+            <p><strong>(d) Complete SPNE Strategy Profile:</strong></p>
+            <p><strong>(Z; A, C)</strong></p>
+            <p>This means:</p>
+            <ul>
+                <li>Player 1 chooses Z</li>
+                <li>Player 2 chooses A if Z is played (on equilibrium path)</li>
+                <li>Player 2 chooses C if W is played (off equilibrium path, but still optimal in that subgame)</li>
+            </ul>
+            
+            <p><strong>(e) Equilibrium Payoffs:</strong></p>
+            <p>Following the equilibrium path (Z → A):</p>
+            <p><strong>Payoffs: (6, 4)</strong></p>
+        </div>
+    </div>
+
+    <div class="problem-container">
+        <h2>Problem 3: No Pure Nash Equilibrium in Subgame (25 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider the following sequential game where Player 1 first decides whether to enter a market or fight:</p>
+        </div>
+        
+        <canvas id="tree3" width="700" height="550"></canvas>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <ul>
+                <li>Player 1 moves first and chooses either <strong>E</strong> (Enter) or <strong>F</strong> (Fight)</li>
+                <li>If Player 1 chooses <strong>F</strong>, the game ends immediately with payoffs <strong>(2, 1.5)</strong></li>
+                <li>If Player 1 chooses <strong>E</strong>, both players simultaneously play the following subgame:</li>
+            </ul>
+            
+            <p style="text-align: center; margin: 20px 0;"><strong>Subgame Payoff Matrix (after E is chosen):</strong></p>
+            <table style="margin: 0 auto; border-collapse: collapse;">
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><strong>Player 2: X</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><strong>Player 2: Y</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Player 1: A</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">(3, 0)</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">(0, 3)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>Player 1: B</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">(0, 3)</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">(3, 0)</td>
+                </tr>
+            </table>
+            
+            <p style="margin-top: 15px;"><em>Note: This subgame has NO pure strategy Nash equilibrium.</em></p>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Verify that the subgame (after E is chosen) has no pure strategy Nash equilibrium by checking all four strategy profiles. (4 points)</p>
+            <p><strong>(b)</strong> Find the mixed strategy Nash equilibrium of the subgame. Let p = probability that Player 1 plays A, and q = probability that Player 2 plays X. Show all work including indifference conditions. (8 points)</p>
+            <p><strong>(c)</strong> Calculate the expected payoffs for both players in the mixed strategy Nash equilibrium of the subgame. (4 points)</p>
+            <p><strong>(d)</strong> Using backward induction, determine whether Player 1 will choose E or F in the SPNE. Compare the expected payoff from E with the payoff from F. (5 points)</p>
+            <p><strong>(e)</strong> State the complete SPNE strategy profile, including the mixed strategies in the subgame. (4 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer3')">Show/Hide Answer</button>
+        
+        <div id="answer3" class="answer-section">
+            <h3>Solution to Problem 3:</h3>
+            
+            <p><strong>(a) Verify No Pure Strategy Nash Equilibrium:</strong></p>
+            <p>Check all four possible pure strategy profiles:</p>
+            
+            <p><strong>1. (A, X) → (3, 0):</strong></p>
+            <ul>
+                <li>Player 1: If Player 2 plays X, should Player 1 play A (payoff 3) or B (payoff 0)? A is better. ✓</li>
+                <li>Player 2: If Player 1 plays A, should Player 2 play X (payoff 0) or Y (payoff 3)? Y is better. ✗</li>
+                <li>Not a Nash equilibrium (Player 2 wants to deviate)</li>
+            </ul>
+            
+            <p><strong>2. (A, Y) → (0, 3):</strong></p>
+            <ul>
+                <li>Player 1: If Player 2 plays Y, should Player 1 play A (payoff 0) or B (payoff 3)? B is better. ✗</li>
+                <li>Not a Nash equilibrium (Player 1 wants to deviate)</li>
+            </ul>
+            
+            <p><strong>3. (B, X) → (0, 3):</strong></p>
+            <ul>
+                <li>Player 1: If Player 2 plays X, should Player 1 play B (payoff 0) or A (payoff 3)? A is better. ✗</li>
+                <li>Not a Nash equilibrium (Player 1 wants to deviate)</li>
+            </ul>
+            
+            <p><strong>4. (B, Y) → (3, 0):</strong></p>
+            <ul>
+                <li>Player 1: If Player 2 plays Y, should Player 1 play B (payoff 3) or A (payoff 0)? B is better. ✓</li>
+                <li>Player 2: If Player 1 plays B, should Player 2 play Y (payoff 0) or X (payoff 3)? X is better. ✗</li>
+                <li>Not a Nash equilibrium (Player 2 wants to deviate)</li>
+            </ul>
+            
+            <p><strong>Conclusion: No pure strategy Nash equilibrium exists.</strong></p>
+            
+            <p><strong>(b) Mixed Strategy Nash Equilibrium:</strong></p>
+            <p>Let p = probability Player 1 plays A (and 1-p for B)</p>
+            <p>Let q = probability Player 2 plays X (and 1-q for Y)</p>
+            
+            <p><strong>For Player 2 to mix, Player 2 must be indifferent between X and Y:</strong></p>
+            <p>Expected payoff from X: E₂(X) = p(0) + (1-p)(3) = 3 - 3p</p>
+            <p>Expected payoff from Y: E₂(Y) = p(3) + (1-p)(0) = 3p</p>
+            <p>Set equal: 3 - 3p = 3p</p>
+            <p>Solving: 3 = 6p → <strong>p = 1/2</strong></p>
+            
+            <p><strong>For Player 1 to mix, Player 1 must be indifferent between A and B:</strong></p>
+            <p>Expected payoff from A: E₁(A) = q(3) + (1-q)(0) = 3q</p>
+            <p>Expected payoff from B: E₁(B) = q(0) + (1-q)(3) = 3 - 3q</p>
+            <p>Set equal: 3q = 3 - 3q</p>
+            <p>Solving: 6q = 3 → <strong>q = 1/2</strong></p>
+            
+            <p><strong>Mixed Strategy Nash Equilibrium: (p*, q*) = (1/2, 1/2)</strong></p>
+            <p>Each player plays each of their strategies with probability 1/2.</p>
+            
+            <p><strong>(c) Expected Payoffs in Mixed Strategy Equilibrium:</strong></p>
+            
+            <p><strong>Player 1's expected payoff:</strong></p>
+            <p>E₁ = 3q = 3(1/2) = <strong>3/2 = 1.5</strong></p>
+            <p>(Or equivalently: E₁ = 3 - 3q = 3(1/2) = 1.5)</p>
+            
+            <p><strong>Player 2's expected payoff:</strong></p>
+            <p>E₂ = 3p = 3(1/2) = <strong>3/2 = 1.5</strong></p>
+            <p>(Or equivalently: E₂ = 3 - 3p = 3(1/2) = 1.5)</p>
+            
+            <p><strong>Both players get expected payoff of 1.5 in the mixed strategy equilibrium.</strong></p>
+            
+            <p><strong>(d) Backward Induction - Will Player 1 Choose E or F?</strong></p>
+            <p>Compare expected payoffs:</p>
+            <ul>
+                <li>Choosing F: Player 1 gets <strong>2</strong></li>
+                <li>Choosing E: Player 1 expects <strong>1.5</strong> (from the mixed strategy equilibrium)</li>
+            </ul>
+            <p>Since 2 > 1.5, Player 1 prefers to choose <strong>F</strong>.</p>
+            
+            <p><strong>(e) Complete SPNE Strategy Profile:</strong></p>
+            <p><strong>Player 1 chooses F at the initial node.</strong></p>
+            <p><strong>Off-equilibrium behavior (if E were chosen):</strong> Both players would play the mixed strategy (1/2, 1/2) in the subgame.</p>
+            
+            <p><strong>Complete SPNE:</strong></p>
+            <p><strong>(F; play A with probability 1/2 and B with probability 1/2 if E is chosen; play X with probability 1/2 and Y with probability 1/2 if E is chosen)</strong></p>
+            
+            <p><strong>Equilibrium outcome: F is chosen, game ends with payoffs (2, 1.5)</strong></p>
+        </div>
+    </div>
+
+    <div class="problem-container">
+        <h2>Problem 4: Information Sets and Subgame Perfect Nash Equilibrium (30 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider the following extensive-form game with imperfect information:</p>
+        </div>
+        
+        <canvas id="tree4" width="800" height="600"></canvas>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <ul>
+                <li>Player 1 moves first and chooses either <strong>A</strong> or <strong>B</strong></li>
+                <li>Player 2 observes Player 1's choice and then chooses either <strong>C</strong> or <strong>D</strong></li>
+                <li>If Player 2 chooses <strong>C</strong>, the game ends with payoffs depending on Player 1's initial choice:
+                    <ul>
+                        <li>If P1 chose A: payoffs are <strong>(1, 2)</strong></li>
+                        <li>If P1 chose B: payoffs are <strong>(7, 8)</strong></li>
+                    </ul>
+                </li>
+                <li>If Player 2 chooses <strong>D</strong>, Player 1 gets to move again and chooses either <strong>E</strong> or <strong>F</strong>:
+                    <ul>
+                        <li>If P1 chose A initially and then E: payoffs are <strong>(3, 4)</strong></li>
+                        <li>If P1 chose A initially and then F: payoffs are <strong>(5, 6)</strong></li>
+                        <li>If P1 chose B initially and then E: payoffs are <strong>(9, 10)</strong></li>
+                        <li>If P1 chose B initially and then F: payoffs are <strong>(11, 12)</strong></li>
+                    </ul>
+                </li>
+                <li>Payoffs are written as (Player 1, Player 2)</li>
+            </ul>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Identify all subgames in this game tree. (5 points)</p>
+            <p><strong>(b)</strong> For each subgame, find the Nash equilibrium using backward induction. Show your reasoning clearly. (10 points)</p>
+            <p><strong>(c)</strong> Find all Subgame Perfect Nash Equilibria (SPNE) of the entire game. (8 points)</p>
+            <p><strong>(d)</strong> State the complete SPNE strategy profiles in the form: (Player 1's initial choice; Player 2's choice after A, Player 2's choice after B; Player 1's choice after (A,D), Player 1's choice after (B,D)). (4 points)</p>
+            <p><strong>(e)</strong> What are the equilibrium payoffs for each SPNE? (3 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer4')">Show/Hide Answer</button>
+        
+        <div id="answer4" class="answer-section">
+            <h3>Solution to Problem 4:</h3>
+            
+            <p><strong>(a) Subgames:</strong></p>
+            <p>There are <strong>3 subgames (2 proper subgames)</strong>:</p>
+            <ul>
+                <li>The entire game (starting at Player 1's initial node)</li>
+                <li>Proper Subgame 1: Starting at Player 1's decision node after (A, D)</li>
+                <li>Proper Subgame 2: Starting at Player 1's decision node after (B, D)</li>
+            </ul>
+            
+            <p><strong>(b) Nash Equilibrium in Each Subgame:</strong></p>
+            
+            <p><strong>Subgame 1 (after A, D):</strong></p>
+            <p>Player 1 compares:</p>
+            <ul>
+                <li>Choosing E: payoff = 3</li>
+                <li>Choosing F: payoff = 5</li>
+            </ul>
+            <p>Since 5 > 3, Player 1's best response is <strong>F</strong>.</p>
+            <p><strong>Nash equilibrium in Subgame 1: F</strong></p>
+            
+            <p><strong>Subgame 2 (after B, D):</strong></p>
+            <p>Player 1 compares:</p>
+            <ul>
+                <li>Choosing E: payoff = 9</li>
+                <li>Choosing F: payoff = 11</li>
+            </ul>
+            <p>Since 11 > 9, Player 1's best response is <strong>F</strong>.</p>
+            <p><strong>Nash equilibrium in Subgame 2: F</strong></p>
+            
+            <p><strong>(c) Finding SPNE of the Entire Game:</strong></p>
+            <p>Now we work backwards to find Player 2's optimal choices, knowing Player 1 will choose F in both subgames:</p>
+            
+            <p><strong>Player 2's decision after A:</strong></p>
+            <p>Player 2 compares:</p>
+            <ul>
+                <li>Choosing C: payoff = 2</li>
+                <li>Choosing D: leads to Player 1 choosing F → payoff = 6</li>
+            </ul>
+            <p>Since 6 > 2, Player 2's best response after A is <strong>D</strong>.</p>
+            
+            <p><strong>Player 2's decision after B:</strong></p>
+            <p>Player 2 compares:</p>
+            <ul>
+                <li>Choosing C: payoff = 8</li>
+                <li>Choosing D: leads to Player 1 choosing F → payoff = 12</li>
+            </ul>
+            <p>Since 12 > 8, Player 2's best response after B is <strong>D</strong>.</p>
+            
+            <p><strong>Player 1's initial decision:</strong></p>
+            <p>Knowing that Player 2 will choose D after both A and B, and that Player 1 will choose F in both resulting subgames, Player 1 compares:</p>
+            <ul>
+                <li>Choosing A: leads to (A, D, F) → payoff = 5</li>
+                <li>Choosing B: leads to (B, D, F) → payoff = 11</li>
+            </ul>
+            <p>Since 11 > 5, Player 1's optimal initial choice is <strong>B</strong>.</p>
+            
+            <p><strong>There is exactly ONE SPNE:</strong></p>
+            <p><strong>(B; D, D; F, F)</strong></p>
+            
+            <p><strong>(d) Complete SPNE Strategy Profile:</strong></p>
+            <p><strong>(B; D, D; F, F)</strong></p>
+            <p>This means:</p>
+            <ul>
+                <li>Player 1 initially chooses B</li>
+                <li>Player 2 chooses D after A (off-equilibrium path)</li>
+                <li>Player 2 chooses D after B (on-equilibrium path)</li>
+                <li>Player 1 chooses F after (A, D) (off-equilibrium path)</li>
+                <li>Player 1 chooses F after (B, D) (on-equilibrium path)</li>
+            </ul>
+            
+            <p><strong>(e) Equilibrium Payoffs:</strong></p>
+            <p>Following the equilibrium path (B → D → F):</p>
+            <p><strong>Payoffs: (11, 12)</strong></p>
+            
+            <p><strong>Key Insights:</strong></p>
+            <ul>
+                <li>Player 1 prefers B over A because it leads to higher payoffs in the continuation game</li>
+                <li>Player 2 always prefers D over C because the continuation game gives higher payoffs</li>
+                <li>Player 1 always chooses F in the final subgames because it maximizes their payoff</li>
+                <li>The equilibrium path is B → D → F with payoffs (11, 12)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="problem-container">
+        <h2>Problem 5: The Hungry Lions Game (35 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider a hierarchical group of <strong>n hungry lions</strong> facing a prey. The game proceeds as follows:</p>
+            <ul>
+                <li>If Lion 1 does not eat the prey, the prey escapes and the game ends</li>
+                <li>If Lion 1 eats the prey, it becomes fat and slow, and Lion 2 can eat Lion 1</li>
+                <li>If Lion 2 does not eat Lion 1, the game ends</li>
+                <li>If Lion 2 eats Lion 1, then Lion 3 can eat Lion 2, and so on...</li>
+                <li>This continues until either a lion chooses not to eat, or we reach the last lion</li>
+            </ul>
+            
+            <p><strong>Preferences:</strong></p>
+            <ul>
+                <li>Each lion prefers to <strong>eat</strong> than to be <strong>hungry</strong></li>
+                <li>Each lion prefers to be <strong>hungry</strong> than to be <strong>eaten</strong></li>
+            </ul>
+            
+            <p><strong>Payoff Structure:</strong></p>
+            <ul>
+                <li>Eat (E) = +1</li>
+                <li>Not Eat (NE) = 0</li>
+                <li>Be Eaten = -1</li>
+            </ul>
+        </div>
+        
+        <canvas id="tree5" width="900" height="500"></canvas>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <p>This is a sequential game where lions move in hierarchical order. Each lion can choose to eat the previous lion (if any) or not eat. The game ends when a lion chooses not to eat, or when we reach the last lion.</p>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Analyze the game for <strong>n = 2</strong> lions. Draw the game tree and find the Subgame Perfect Equilibrium (SPE). (8 points)</p>
+            <p><strong>(b)</strong> Analyze the game for <strong>n = 3</strong> lions. Draw the game tree and find the SPE. (10 points)</p>
+            <p><strong>(c)</strong> Analyze the game for <strong>n = 4</strong> lions. Find the SPE without drawing the full tree. (7 points)</p>
+            <p><strong>(d)</strong> Generalize your findings: What is the SPE for any number <strong>n</strong> of lions? Provide a clear rule. (6 points)</p>
+            <p><strong>(e)</strong> Explain the intuition behind your general result. Why does the pattern depend on whether n is odd or even? (4 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer5')">Show/Hide Answer</button>
+        
+        <div id="answer5" class="answer-section">
+            <h3>Solution to Problem 5:</h3>
+            
+            <p><strong>(a) Analysis for n = 2 Lions:</strong></p>
+            <p><strong>Game Tree:</strong></p>
+            <ul>
+                <li>Lion 1 chooses: Eat (E) or Not Eat (NE)</li>
+                <li>If Lion 1 chooses NE: Game ends, payoffs (0, 0)</li>
+                <li>If Lion 1 chooses E: Lion 2 chooses E or NE</li>
+                <li>If Lion 2 chooses E: Lion 2 eats Lion 1, payoffs (-1, 1)</li>
+                <li>If Lion 2 chooses NE: Game ends, payoffs (1, 0)</li>
+            </ul>
+            
+            <p><strong>Backward Induction:</strong></p>
+            <p>At Lion 2's decision: Lion 2 compares eating (payoff 1) vs not eating (payoff 0). Since 1 > 0, Lion 2 chooses <strong>E</strong>.</p>
+            <p>At Lion 1's decision: Lion 1 compares not eating (payoff 0) vs eating (which leads to Lion 2 eating Lion 1, payoff -1). Since 0 > -1, Lion 1 chooses <strong>NE</strong>.</p>
+            
+            <p><strong>SPE for n = 2:</strong> Lion 1 chooses NE, Lion 2 chooses E (if reached)</p>
+            <p><strong>Equilibrium outcome:</strong> Lion 1 does not eat, game ends with payoffs (0, 0)</p>
+            
+            <p><strong>(b) Analysis for n = 3 Lions:</strong></p>
+            <p><strong>Game Tree:</strong></p>
+            <ul>
+                <li>Lion 1 chooses: E or NE</li>
+                <li>If Lion 1 chooses NE: Game ends, payoffs (0, 0, 0)</li>
+                <li>If Lion 1 chooses E: Lion 2 chooses E or NE</li>
+                <li>If Lion 2 chooses NE: Game ends, payoffs (1, 0, 0)</li>
+                <li>If Lion 2 chooses E: Lion 3 chooses E or NE</li>
+                <li>If Lion 3 chooses E: Lion 3 eats Lion 2, payoffs (-1, -1, 1)</li>
+                <li>If Lion 3 chooses NE: Game ends, payoffs (-1, 1, 0)</li>
+            </ul>
+            
+            <p><strong>Backward Induction:</strong></p>
+            <p><strong>Stage 3 (Lion 3):</strong> Lion 3 compares eating (payoff 1) vs not eating (payoff 0). Since 1 > 0, Lion 3 chooses <strong>E</strong>.</p>
+            <p><strong>Stage 2 (Lion 2):</strong> Lion 2 compares not eating (payoff 0) vs eating (which leads to Lion 3 eating Lion 2, payoff -1). Since 0 > -1, Lion 2 chooses <strong>NE</strong>.</p>
+            <p><strong>Stage 1 (Lion 1):</strong> Lion 1 compares not eating (payoff 0) vs eating (which leads to Lion 2 not eating Lion 1, payoff 1). Since 1 > 0, Lion 1 chooses <strong>E</strong>.</p>
+            
+            <p><strong>SPE for n = 3:</strong> (E, NE, E)</p>
+            <p><strong>Equilibrium outcome:</strong> Lion 1 eats, Lion 2 does not eat Lion 1, game ends with payoffs (1, 0, 0)</p>
+            
+            <p><strong>(c) Analysis for n = 4 Lions:</strong></p>
+            <p>Using the same backward induction logic:</p>
+            <p><strong>Stage 4 (Lion 4):</strong> Lion 4 chooses E (payoff 1 > 0)</p>
+            <p><strong>Stage 3 (Lion 3):</strong> Lion 3 chooses NE (payoff 0 > -1)</p>
+            <p><strong>Stage 2 (Lion 2):</strong> Lion 2 chooses E (payoff 1 > 0)</p>
+            <p><strong>Stage 1 (Lion 1):</strong> Lion 1 chooses NE (payoff 0 > -1)</p>
+            
+            <p><strong>SPE for n = 4:</strong> (NE, E, NE, E)</p>
+            <p><strong>Equilibrium outcome:</strong> Lion 1 does not eat, game ends with payoffs (0, 0, 0, 0)</p>
+            
+            <p><strong>(d) General Rule for Any n Lions:</strong></p>
+            <p><strong>For n odd:</strong> The first lion eats, the second lion does not eat, and the game ends.</p>
+            <p><strong>For n even:</strong> The first lion does not eat, and the game ends immediately.</p>
+            
+            <p><strong>Pattern:</strong></p>
+            <ul>
+                <li><strong>n = 1:</strong> Lion 1 eats (no one to eat him)</li>
+                <li><strong>n = 2:</strong> Lion 1 does not eat</li>
+                <li><strong>n = 3:</strong> Lion 1 eats, Lion 2 does not eat</li>
+                <li><strong>n = 4:</strong> Lion 1 does not eat</li>
+                <li><strong>n = 5:</strong> Lion 1 eats, Lion 2 does not eat</li>
+                <li>And so on...</li>
+            </ul>
+            
+            <p><strong>(e) Intuition Behind the Pattern:</strong></p>
+            <p>The key insight is that each lion wants to avoid being eaten by the next lion. This creates a "chain of fear" that works backwards from the last lion.</p>
+            
+            <p><strong>For odd n:</strong> The last lion (nth) will always eat the previous lion because no one can eat him. This means the (n-1)th lion will not eat because he would be eaten. This pattern continues, so the 1st lion can safely eat because the 2nd lion will not eat him.</p>
+            
+            <p><strong>For even n:</strong> The last lion will eat the previous lion, so the (n-1)th lion will not eat, and so on. This means the 2nd lion will eat the 1st lion if the 1st lion eats. Therefore, the 1st lion prefers not to eat to avoid being eaten.</p>
+            
+            <p><strong>Key Insight:</strong> The equilibrium depends on whether the "chain of fear" ends with the first lion being safe (odd n) or vulnerable (even n).</p>
+        </div>
+    </div>
+
+    <div class="problem-container">
+        <h2>Problem 6: Infinitely Repeated Game and Discount Factor (40 points)</h2>
+        
+        <div class="question-text">
+            <p>Consider the following game played between two players infinitely:</p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <table style="margin: 0 auto; border-collapse: collapse; font-size: 16px;">
+                <tr>
+                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;"></td>
+                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: A</td>
+                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: B</td>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: A</td>
+                    <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #e8f5e9;">(6, 6)</td>
+                    <td style="border: 2px solid #333; padding: 15px; text-align: center;">(0, 7)</td>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: B</td>
+                    <td style="border: 2px solid #333; padding: 15px; text-align: center;">(7, 0)</td>
+                    <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #fff3e0;">(3, 3)</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="question-text">
+            <p><strong>Game Description:</strong></p>
+            <ul>
+                <li>This is a symmetric 2×2 game where both players can choose strategy A or B</li>
+                <li>Payoffs are written as (Player 1, Player 2)</li>
+                <li>The game is played infinitely with discount factor δ ∈ (0, 1)</li>
+                <li>Players receive discounted payoffs: π₁ + δπ₂ + δ²π₃ + δ³π₄ + ...</li>
+            </ul>
+        </div>
+        
+        <div class="tasks">
+            <h3>Tasks:</h3>
+            <p><strong>(a)</strong> Suppose this game is played forever. Construct a strategy where the players play (A,A) in every round and calculate a value of the discount factor δ that supports this. (25 points)</p>
+            <p><strong>(b)</strong> What is the minimum discount factor required to sustain cooperation (A,A) as a Subgame Perfect Nash Equilibrium? (10 points)</p>
+            <p><strong>(c)</strong> Explain the economic intuition behind your result. Why does the discount factor matter for sustaining cooperation? (5 points)</p>
+        </div>
+        
+        <button class="answer-button" onclick="toggleAnswer('answer6')">Show/Hide Answer</button>
+        
+        <div id="answer6" class="answer-section">
+            <h3>Solution to Problem 6:</h3>
+            
+            <p><strong>(a) Strategy Construction and Discount Factor Calculation:</strong></p>
+            
+            <p><strong>Strategy:</strong> Both players play A in every round, with the following punishment mechanism:</p>
+            <ul>
+                <li>If both players have always played A, continue playing A</li>
+                <li>If any player deviates from A, both players switch to playing (B,B) forever (grim trigger strategy)</li>
+            </ul>
+            
+            <p><strong>Since it's a symmetric game, both players will have the same discount factor δ.</strong></p>
+            
+            <p><strong>No Deviation Payoff:</strong></p>
+            <p>If both players stick to (A,A) in every round:</p>
+            <p>Total discounted payoff = 6 + δ·6 + δ²·6 + δ³·6 + ...</p>
+            <p>This is an infinite geometric series: 6(1 + δ + δ² + δ³ + ...)</p>
+            <p>Using the formula for infinite geometric series: <strong>6/(1-δ)</strong></p>
+            
+            <p><strong>Deviation Payoff:</strong></p>
+            <p>If a player deviates once (plays B while opponent plays A), then both players play (B,B) forever:</p>
+            <p>Deviation payoff = 7 + δ·3 + δ²·3 + δ³·3 + ...</p>
+            <p>This equals: 7 + δ·3(1 + δ + δ² + ...)</p>
+            <p>Using the geometric series formula: <strong>7 + 3δ/(1-δ)</strong></p>
+            
+            <p><strong>SPNE Condition:</strong></p>
+            <p>For (A,A) to be a Subgame Perfect Nash Equilibrium, the payoff from not deviating must be at least as good as deviating:</p>
+            <p><strong>6/(1-δ) ≥ 7 + 3δ/(1-δ)</strong></p>
+            
+            <p><strong>Solving for δ:</strong></p>
+            <p>Multiply both sides by (1-δ):</p>
+            <p>6 ≥ 7(1-δ) + 3δ</p>
+            <p>6 ≥ 7 - 7δ + 3δ</p>
+            <p>6 ≥ 7 - 4δ</p>
+            <p>4δ ≥ 1</p>
+            <p><strong>δ ≥ 1/4</strong></p>
+            
+            <p><strong>Conclusion:</strong> The strategy (A,A) in every round is a Subgame Perfect Nash Equilibrium if and only if δ ≥ 1/4.</p>
+            
+            <p><strong>(b) Minimum Discount Factor:</strong></p>
+            <p>The minimum discount factor required to sustain cooperation (A,A) as a SPNE is <strong>δ = 1/4 = 0.25</strong>.</p>
+            
+            <p><strong>(c) Economic Intuition:</strong></p>
+            <p>The discount factor δ represents how much players value future payoffs relative to current payoffs:</p>
+            <ul>
+                <li><strong>High δ (close to 1):</strong> Players highly value future payoffs, making cooperation sustainable</li>
+                <li><strong>Low δ (close to 0):</strong> Players heavily discount the future, making immediate deviation attractive</li>
+                <li><strong>δ ≥ 1/4:</strong> The future benefits of cooperation (6 per period) outweigh the immediate gain from deviation (7) minus the future cost of punishment (3 per period)</li>
+            </ul>
+            
+            <p><strong>Key Insight:</strong> Cooperation is sustainable when players care enough about the future to make the long-term benefits of cooperation exceed the short-term gains from deviation.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tree 1: Identical Payoffs
+        function drawTree1(ctx, canvas) {
+            const w = canvas.width;
+            const h = canvas.height;
+            
+            // Root node (Player 1) at top
+            ctx.beginPath();
+            ctx.arc(w/2, 60, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('1', w/2, 60);
+
+            // Left branch to Player 2
+            ctx.beginPath();
+            ctx.moveTo(w/2 - 15, 75);
+            ctx.lineTo(200, 200);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Label L
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('L', 250, 120);
+
+            // Right branch (R)
+            ctx.beginPath();
+            ctx.moveTo(w/2 + 15, 75);
+            ctx.lineTo(400, 200);
+            ctx.stroke();
+            
+            // Label R
+            ctx.fillText('R', 350, 120);
+
+            // Player 2 node (left side)
+            ctx.beginPath();
+            ctx.arc(200, 215, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('2', 200, 215);
+
+            // Player 2's U branch
+            ctx.beginPath();
+            ctx.moveTo(185, 230);
+            ctx.lineTo(120, 340);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('U', 140, 280);
+
+            // Player 2's D branch
+            ctx.beginPath();
+            ctx.moveTo(215, 230);
+            ctx.lineTo(280, 340);
+            ctx.stroke();
+            ctx.fillText('D', 260, 280);
+
+            // Terminal nodes (payoffs)
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(1, 2)', 120, 365);
+            ctx.fillText('(1, 0)', 280, 365);
+            ctx.fillText('(1, 1)', 400, 225);
+        }
+
+        // Tree 2: Multiple Subgames
+        function drawTree2(ctx, canvas) {
+            const w = canvas.width;
+            const h = canvas.height;
+            
+            // Root node (Player 1)
+            ctx.beginPath();
+            ctx.arc(w/2, 70, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('1', w/2, 70);
+
+            // Left branch (Z)
+            ctx.beginPath();
+            ctx.moveTo(w/2 - 15, 85);
+            ctx.lineTo(200, 220);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('Z', 270, 140);
+
+            // Right branch (W)
+            ctx.beginPath();
+            ctx.moveTo(w/2 + 15, 85);
+            ctx.lineTo(500, 220);
+            ctx.stroke();
+            ctx.fillText('W', 430, 140);
+
+            // Left Player 2 node
+            ctx.beginPath();
+            ctx.arc(200, 235, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('2', 200, 235);
+
+            // Right Player 2 node
+            ctx.beginPath();
+            ctx.arc(500, 235, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.fillText('2', 500, 235);
+
+            // Left Player 2's branches (A and B)
+            ctx.beginPath();
+            ctx.moveTo(185, 250);
+            ctx.lineTo(120, 380);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('A', 140, 310);
+
+            ctx.beginPath();
+            ctx.moveTo(215, 250);
+            ctx.lineTo(280, 380);
+            ctx.stroke();
+            ctx.fillText('B', 260, 310);
+
+            // Right Player 2's branches (C and D)
+            ctx.beginPath();
+            ctx.moveTo(485, 250);
+            ctx.lineTo(420, 380);
+            ctx.stroke();
+            ctx.fillText('C', 440, 310);
+
+            ctx.beginPath();
+            ctx.moveTo(515, 250);
+            ctx.lineTo(580, 380);
+            ctx.stroke();
+            ctx.fillText('D', 560, 310);
+
+            // Terminal payoffs
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(6, 4)', 120, 410);
+            ctx.fillText('(3, 2)', 280, 410);
+            ctx.fillText('(4, 6)', 420, 410);
+            ctx.fillText('(2, 1)', 580, 410);
+        }
+
+        // Tree 3: No Pure Nash
+        function drawTree3(ctx, canvas) {
+            const w = canvas.width;
+            const h = canvas.height;
+            
+            // Root node (Player 1)
+            ctx.beginPath();
+            ctx.arc(w/2, 70, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('1', w/2, 70);
+
+            // Left branch (E)
+            ctx.beginPath();
+            ctx.moveTo(w/2 - 15, 85);
+            ctx.lineTo(220, 230);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('E', 270, 145);
+
+            // Right branch (F)
+            ctx.beginPath();
+            ctx.moveTo(w/2 + 15, 85);
+            ctx.lineTo(480, 230);
+            ctx.stroke();
+            ctx.fillText('F', 430, 145);
+
+            // Terminal payoff for F
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(2, 1.5)', 480, 255);
+
+            // Draw game matrix box
+            ctx.strokeStyle = '#2c3e50';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(70, 280, 300, 200);
+            
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Simultaneous Move Subgame', 220, 305);
+
+            // Matrix labels
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Player 2', 260, 335);
+            ctx.fillText('X', 220, 360);
+            ctx.fillText('Y', 300, 360);
+            
+            ctx.save();
+            ctx.translate(100, 410);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText('Player 1', 0, 0);
+            ctx.restore();
+            
+            ctx.fillText('A', 140, 395);
+            ctx.fillText('B', 140, 445);
+
+            // Draw matrix grid
+            ctx.strokeStyle = '#34495e';
+            ctx.lineWidth = 1;
+            
+            // Vertical lines
+            ctx.beginPath();
+            ctx.moveTo(180, 370);
+            ctx.lineTo(180, 465);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(260, 370);
+            ctx.lineTo(260, 465);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(340, 370);
+            ctx.lineTo(340, 465);
+            ctx.stroke();
+            
+            // Horizontal lines
+            ctx.beginPath();
+            ctx.moveTo(180, 370);
+            ctx.lineTo(340, 370);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(180, 417);
+            ctx.lineTo(340, 417);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(180, 465);
+            ctx.lineTo(340, 465);
+            ctx.stroke();
+
+            // Payoffs in cells
+            ctx.font = '13px Arial';
+            ctx.fillText('(3, 0)', 220, 395);
+            ctx.fillText('(0, 3)', 300, 395);
+            ctx.fillText('(0, 3)', 220, 445);
+            ctx.fillText('(3, 0)', 300, 445);
+        }
+
+        // Tree 4: Information Sets and SPNE
+        function drawTree4(ctx, canvas) {
+            const w = canvas.width;
+            const h = canvas.height;
+            
+            // Root node (Player 1)
+            ctx.beginPath();
+            ctx.arc(w/2, 80, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('P1', w/2, 80);
+
+            // Left branch (A)
+            ctx.beginPath();
+            ctx.moveTo(w/2 - 15, 95);
+            ctx.lineTo(200, 200);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('A', 280, 140);
+
+            // Right branch (B)
+            ctx.beginPath();
+            ctx.moveTo(w/2 + 15, 95);
+            ctx.lineTo(600, 200);
+            ctx.stroke();
+            ctx.fillText('B', 520, 140);
+
+            // Player 2 nodes (connected by information set)
+            // Left P2 node
+            ctx.beginPath();
+            ctx.arc(200, 215, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('P2', 200, 215);
+
+            // Right P2 node
+            ctx.beginPath();
+            ctx.arc(600, 215, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('P2', 600, 215);
+
+            // Information set (dashed oval connecting P2 nodes)
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.ellipse(400, 215, 220, 40, 0, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Information set label
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('P2', 400, 200);
+
+            // Left P2's branches (C and D)
+            ctx.beginPath();
+            ctx.moveTo(185, 230);
+            ctx.lineTo(120, 350);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('C', 140, 280);
+
+            ctx.beginPath();
+            ctx.moveTo(215, 230);
+            ctx.lineTo(280, 350);
+            ctx.stroke();
+            ctx.fillText('D', 260, 280);
+
+            // Right P2's branches (C and D)
+            ctx.beginPath();
+            ctx.moveTo(585, 230);
+            ctx.lineTo(520, 350);
+            ctx.stroke();
+            ctx.fillText('C', 540, 280);
+
+            ctx.beginPath();
+            ctx.moveTo(615, 230);
+            ctx.lineTo(680, 350);
+            ctx.stroke();
+            ctx.fillText('D', 660, 280);
+
+            // Terminal payoffs for C branches
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(1, 2)', 120, 375);
+            ctx.fillText('(7, 8)', 520, 375);
+
+            // Player 1's final decision nodes after D
+            // Left side (after A, D)
+            ctx.beginPath();
+            ctx.arc(280, 365, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('P1', 280, 365);
+
+            // Right side (after B, D)
+            ctx.beginPath();
+            ctx.arc(680, 365, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('P1', 680, 365);
+
+            // Left P1's branches (E and F)
+            ctx.beginPath();
+            ctx.moveTo(265, 380);
+            ctx.lineTo(200, 480);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('E', 220, 420);
+
+            ctx.beginPath();
+            ctx.moveTo(295, 380);
+            ctx.lineTo(360, 480);
+            ctx.stroke();
+            ctx.fillText('F', 340, 420);
+
+            // Right P1's branches (E and F)
+            ctx.beginPath();
+            ctx.moveTo(665, 380);
+            ctx.lineTo(600, 480);
+            ctx.stroke();
+            ctx.fillText('E', 620, 420);
+
+            ctx.beginPath();
+            ctx.moveTo(695, 380);
+            ctx.lineTo(760, 480);
+            ctx.stroke();
+            ctx.fillText('F', 740, 420);
+
+            // Final terminal payoffs
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(3, 4)', 200, 505);
+            ctx.fillText('(5, 6)', 360, 505);
+            ctx.fillText('(9, 10)', 600, 505);
+            ctx.fillText('(11, 12)', 760, 505);
+        }
+
+        // Tree 5: Hungry Lions Game
+        function drawTree5(ctx, canvas) {
+            const w = canvas.width;
+            const h = canvas.height;
+            
+            // Title
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Hungry Lions Game (n=3 example)', w/2, 30);
+            
+            // Root node (Lion 1) - centered
+            ctx.beginPath();
+            ctx.arc(w/2, 80, 25, 0, 2*Math.PI);
+            ctx.fillStyle = '#ffeb3b';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('L1', w/2, 80);
+
+            // Lion 1's branches
+            // NE branch (left)
+            ctx.beginPath();
+            ctx.moveTo(w/2 - 20, 100);
+            ctx.lineTo(150, 180);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText('NE', 200, 130);
+
+            // E branch (right)
+            ctx.beginPath();
+            ctx.moveTo(w/2 + 20, 100);
+            ctx.lineTo(650, 180);
+            ctx.stroke();
+            ctx.fillText('E', 600, 130);
+
+            // Terminal payoff for NE
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('(0,0,0)', 150, 210);
+
+            // Lion 2 node (moved left to fit)
+            ctx.beginPath();
+            ctx.arc(650, 200, 25, 0, 2*Math.PI);
+            ctx.fillStyle = '#ff9800';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('L2', 650, 200);
+
+            // Lion 2's branches
+            // NE branch (left)
+            ctx.beginPath();
+            ctx.moveTo(630, 220);
+            ctx.lineTo(450, 300);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText('NE', 500, 250);
+
+            // E branch (right)
+            ctx.beginPath();
+            ctx.moveTo(670, 220);
+            ctx.lineTo(750, 300);
+            ctx.stroke();
+            ctx.fillText('E', 700, 250);
+
+            // Terminal payoff for L2 NE
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('(1,0,0)', 450, 330);
+
+            // Lion 3 node (moved left to fit)
+            ctx.beginPath();
+            ctx.arc(750, 320, 25, 0, 2*Math.PI);
+            ctx.fillStyle = '#f44336';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('L3', 750, 320);
+
+            // Lion 3's branches
+            // NE branch (left)
+            ctx.beginPath();
+            ctx.moveTo(730, 340);
+            ctx.lineTo(550, 420);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText('NE', 600, 370);
+
+            // E branch (right)
+            ctx.beginPath();
+            ctx.moveTo(770, 340);
+            ctx.lineTo(850, 420);
+            ctx.stroke();
+            ctx.fillText('E', 800, 370);
+
+            // Terminal payoffs for Lion 3
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('(-1,1,0)', 550, 450);
+            ctx.fillText('(-1,-1,1)', 850, 450);
+
+            // Legend (moved to fit)
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Legend:', 50, 450);
+            ctx.fillText('E = Eat, NE = Not Eat', 50, 470);
+            ctx.fillText('Payoffs: (L1, L2, L3)', 50, 490);
+        }
+
+        // Draw all trees
+        const canvas1 = document.getElementById('tree1');
+        const ctx1 = canvas1.getContext('2d');
+        drawTree1(ctx1, canvas1);
+
+        const canvas2 = document.getElementById('tree2');
+        const ctx2 = canvas2.getContext('2d');
+        drawTree2(ctx2, canvas2);
+
+        const canvas3 = document.getElementById('tree3');
+        const ctx3 = canvas3.getContext('2d');
+        drawTree3(ctx3, canvas3);
+
+        const canvas4 = document.getElementById('tree4');
+        const ctx4 = canvas4.getContext('2d');
+        drawTree4(ctx4, canvas4);
+
+        const canvas5 = document.getElementById('tree5');
+        const ctx5 = canvas5.getContext('2d');
+        drawTree5(ctx5, canvas5);
+        
+        // Toggle answer visibility
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            answerElement.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
