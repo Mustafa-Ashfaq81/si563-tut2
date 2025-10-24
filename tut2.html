@@ -248,38 +248,40 @@
         <h2>Problem 2: Multiple Subgames Case (25 points)</h2>
         
         <div class="question-text">
-            <p>Consider the following sequential game represented by the game tree below:</p>
+            <p>Consider the sequential game represented by the game tree below (exactly as in the shared hand-drawn figure):</p>
         </div>
         
         <canvas id="tree2" width="700" height="500"></canvas>
         
         <div class="question-text">
-            <p><strong>Game Description:</strong></p>
+            <p><strong>Game Description (matches the image):</strong></p>
             <ul>
-                <li>Player 1 moves first and chooses either <strong>Z</strong> or <strong>W</strong></li>
-                <li>If Player 1 chooses <strong>Z</strong>, Player 2 observes this and chooses between <strong>A</strong> or <strong>B</strong>:
+                <li>Player 1 moves first and chooses either <strong>Z</strong> or <strong>W</strong>.</li>
+                <li>If <strong>Z</strong>: Player 2 chooses <strong>C</strong> or <strong>D</strong>.
                     <ul>
-                        <li>If Player 2 chooses <strong>A</strong>, payoffs are <strong>(6, 4)</strong></li>
-                        <li>If Player 2 chooses <strong>B</strong>, payoffs are <strong>(3, 2)</strong></li>
+                        <li>(Z,C) → <strong>(6, 4)</strong></li>
+                        <li>(Z,D) → <strong>(3, 2)</strong></li>
                     </ul>
                 </li>
-                <li>If Player 1 chooses <strong>W</strong>, Player 2 observes this and chooses between <strong>C</strong> or <strong>D</strong>:
+                <li>If <strong>W</strong>: Player 2 first chooses <strong>A</strong> or <strong>B</strong>; then Player 1 moves but <em>does not observe</em> A vs B (both P1 nodes are in the same information set). Player 1 chooses <strong>X</strong> or <strong>Y</strong>.
                     <ul>
-                        <li>If Player 2 chooses <strong>C</strong>, payoffs are <strong>(4, 6)</strong></li>
-                        <li>If Player 2 chooses <strong>D</strong>, payoffs are <strong>(2, 1)</strong></li>
+                        <li>(A,X) → <strong>(3, 0)</strong></li>
+                        <li>(A,Y) → <strong>(8, 5)</strong></li>
+                        <li>(B,X) → <strong>(4, 6)</strong></li>
+                        <li>(B,Y) → <strong>(2, 1)</strong></li>
                     </ul>
                 </li>
-                <li>Payoffs are written as (Player 1, Player 2)</li>
+                <li>Payoffs are (Player 1, Player 2).</li>
             </ul>
         </div>
         
         <div class="tasks">
             <h3>Tasks:</h3>
-            <p><strong>(a)</strong> Identify all subgames in this game tree. (5 points)</p>
-            <p><strong>(b)</strong> For each subgame, find the Nash equilibrium. Show your reasoning. (8 points)</p>
-            <p><strong>(c)</strong> Use backward induction to find the Subgame Perfect Nash Equilibrium (SPNE) of the entire game. (7 points)</p>
-            <p><strong>(d)</strong> State the complete SPNE strategy profile in the form: (Player 1's choice; Player 2's choice after Z, Player 2's choice after W). (3 points)</p>
-            <p><strong>(e)</strong> What are the equilibrium payoffs on the equilibrium path? (2 points)</p>
+            <p><strong>(a)</strong> Identify all subgames. (5 points)</p>
+            <p><strong>(b)</strong> For each proper subgame, find the Nash equilibrium. Show best-response reasoning. (8 points)</p>
+            <p><strong>(c)</strong> Use backward induction to find the SPNE(s) of the entire game. (7 points)</p>
+            <p><strong>(d)</strong> State complete SPNE strategy profiles in the form: (P1 initial; P2 after Z; P2 after W; P1’s action at the W-information-set). (3 points)</p>
+            <p><strong>(e)</strong> Give the equilibrium payoffs on the equilibrium path for each SPNE. (2 points)</p>
         </div>
         
         <button class="answer-button" onclick="toggleAnswer('answer2')">Show/Hide Answer</button>
@@ -288,53 +290,56 @@
             <h3>Solution to Problem 2:</h3>
             
             <p><strong>(a) Subgames:</strong></p>
-            <p>There are <strong>3 subgames (2 proper subgames)</strong>:</p>
             <ul>
-                <li>The entire game (starting at Player 1's initial node)</li>
-                <li>Proper Subgame 1: Starting at Player 2's decision node after Player 1 chooses Z</li>
-                <li>Proper Subgame 2: Starting at Player 2's decision node after Player 1 chooses W</li>
+                <li>The entire game (root).</li>
+                <li><strong>Proper Subgame 1</strong> (after <strong>Z</strong>): P2 chooses C or D.</li>
+                <li><strong>Proper Subgame 2</strong> (after <strong>W</strong>): P2 chooses A/B, then P1 (without observing A/B) chooses X/Y. P1’s two nodes are connected by an information set.</li>
             </ul>
-            
-            <p><strong>(b) Nash Equilibrium in Each Subgame:</strong></p>
-            
-            <p><strong>Subgame 1 (after Z):</strong></p>
-            <p>Player 2 compares:</p>
+
+            <p><strong>(b) Nash equilibrium in each proper subgame:</strong></p>
+            <div class="question-text" style="background:#eef7ff">
+                <p><em>Subgame 1 (after Z):</em> P2 compares payoffs: C gives 4 vs D gives 2 ⇒ <strong>C</strong> is strictly better.</p>
+                <p><strong>Subgame-1 NE:</strong> C ⇒ outcome <strong>(6, 4)</strong>.</p>
+            </div>
+
+            <div class="question-text" style="background:#f6ffed">
+                <p><em>Subgame 2 (after W):</em> Best-response arrows from the 2×2 payoff table:</p>
+                <ul>
+                    <li>If P1 plays <strong>X</strong>, P2 prefers <strong>B</strong> (6 &gt; 0).</li>
+                    <li>If P1 plays <strong>Y</strong>, P2 prefers <strong>A</strong> (5 &gt; 1).</li>
+                    <li>If P2 plays <strong>A</strong>, P1 prefers <strong>Y</strong> (8 &gt; 3).</li>
+                    <li>If P2 plays <strong>B</strong>, P1 prefers <strong>X</strong> (4 &gt; 2).</li>
+                </ul>
+                <p><strong>⇒ Two pure-strategy NE:</strong> <strong>(A,Y)</strong> with payoffs <strong>(8,5)</strong>, and <strong>(B,X)</strong> with payoffs <strong>(4,6)</strong>.</p>
+                <p>(There is also a mixed NE: P2 plays A with <strong>2/7</strong> and B with <strong>5/7</strong>; P1 plays X with <strong>2/5</strong> and Y with <strong>3/5</strong>. Expected payoffs: P1 = <strong>26/7 ≈ 3.714</strong>, P2 = <strong>3</strong>.)</p>
+            </div>
+
+            <p><strong>(c) Backward induction (visual cases):</strong></p>
+            <div class="tasks">
+                <p><strong>Case 1 — Subgame 2 continues at (B,X):</strong> continuation payoff under W is <strong>(4,6)</strong>. Compare with Z→C = <strong>(6,4)</strong>. Player 1 prefers <strong>Z</strong> (6 &gt; 4).</p>
+                <p><strong>Case 2 — Subgame 2 continues at (A,Y):</strong> continuation payoff under W is <strong>(8,5)</strong>. Player 1 prefers <strong>W</strong> (8 &gt; 6).</p>
+                <p><strong>Case 3 — Subgame 2 uses the mixed NE:</strong> continuation payoff under W is <strong>(26/7, 3)</strong> ≈ <strong>(3.714, 3)</strong>. Player 1 prefers <strong>Z</strong> (6 &gt; 3.714).</p>
+            </div>
+
+            <p><strong>(d) Complete SPNE strategy profiles:</strong></p>
             <ul>
-                <li>Choosing A: payoff = 4</li>
-                <li>Choosing B: payoff = 2</li>
+                <li><strong>SPNE-A (when Subgame 2 selects (B,X)):</strong> <br>
+                    <strong>(Z; C; B; X)</strong> &nbsp;&nbsp;→ Equilibrium path: Z → C; payoffs <strong>(6,4)</strong>.
+                </li>
+                <li><strong>SPNE-B (when Subgame 2 selects (A,Y)):</strong> <br>
+                    <strong>(W; C; A; Y)</strong> &nbsp;&nbsp;→ Equilibrium path: W → A → Y; payoffs <strong>(8,5)</strong>.
+                </li>
+                <li><strong>SPNE-C (when Subgame 2 uses the mixed NE):</strong> <br>
+                    <strong>(Z; C; A with 2/7 &amp; B with 5/7; X with 2/5 &amp; Y with 3/5)</strong> &nbsp;&nbsp;→ Equilibrium path: Z → C; payoffs <strong>(6,4)</strong>.
+                </li>
             </ul>
-            <p>Since 4 > 2, Player 2's best response is <strong>A</strong>.</p>
-            <p><strong>Nash equilibrium in Subgame 1: A</strong></p>
-            
-            <p><strong>Subgame 2 (after W):</strong></p>
-            <p>Player 2 compares:</p>
+
+            <p><strong>(e) Equilibrium payoffs on the path:</strong></p>
             <ul>
-                <li>Choosing C: payoff = 6</li>
-                <li>Choosing D: payoff = 1</li>
+                <li>SPNE-A: <strong>(6,4)</strong></li>
+                <li>SPNE-B: <strong>(8,5)</strong></li>
+                <li>SPNE-C: <strong>(6,4)</strong></li>
             </ul>
-            <p>Since 6 > 1, Player 2's best response is <strong>C</strong>.</p>
-            <p><strong>Nash equilibrium in Subgame 2: C</strong></p>
-            
-            <p><strong>(c) Backward Induction for SPNE:</strong></p>
-            <p>Now that we know Player 2 will choose A after Z and C after W, Player 1 anticipates:</p>
-            <ul>
-                <li>Choosing Z: leads to outcome (6, 4) → Player 1 gets 6</li>
-                <li>Choosing W: leads to outcome (4, 6) → Player 1 gets 4</li>
-            </ul>
-            <p>Since 6 > 4, Player 1's optimal choice is <strong>Z</strong>.</p>
-            
-            <p><strong>(d) Complete SPNE Strategy Profile:</strong></p>
-            <p><strong>(Z; A, C)</strong></p>
-            <p>This means:</p>
-            <ul>
-                <li>Player 1 chooses Z</li>
-                <li>Player 2 chooses A if Z is played (on equilibrium path)</li>
-                <li>Player 2 chooses C if W is played (off equilibrium path, but still optimal in that subgame)</li>
-            </ul>
-            
-            <p><strong>(e) Equilibrium Payoffs:</strong></p>
-            <p>Following the equilibrium path (Z → A):</p>
-            <p><strong>Payoffs: (6, 4)</strong></p>
         </div>
     </div>
 
@@ -485,7 +490,7 @@
             <p><strong>Game Description:</strong></p>
             <ul>
                 <li>Player 1 moves first and chooses either <strong>A</strong> or <strong>B</strong></li>
-                <li>Player 2 observes Player 1's choice and then chooses either <strong>C</strong> or <strong>D</strong></li>
+                <li>Player 2 chooses either <strong>C</strong> or <strong>D</strong></li>
                 <li>If Player 2 chooses <strong>C</strong>, the game ends with payoffs depending on Player 1's initial choice:
                     <ul>
                         <li>If P1 chose A: payoffs are <strong>(1, 2)</strong></li>
@@ -948,97 +953,154 @@
         function drawTree2(ctx, canvas) {
             const w = canvas.width;
             const h = canvas.height;
-            
-            // Root node (Player 1)
+
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.font = 'bold 16px Arial';
+
+            // Root: Player 1
             ctx.beginPath();
             ctx.arc(w/2, 70, 20, 0, 2*Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fillStyle = 'black';
-            ctx.font = 'bold 16px Arial';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
             ctx.fillText('1', w/2, 70);
 
-            // Left branch (Z)
+            // Branch Z (left)
             ctx.beginPath();
             ctx.moveTo(w/2 - 15, 85);
-            ctx.lineTo(200, 220);
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineTo(200, 200);
             ctx.stroke();
-            ctx.fillStyle = 'black';
             ctx.font = '14px Arial';
-            ctx.fillText('Z', 270, 140);
+            ctx.fillText('Z', (w/2 + 200)/2 - 60, 135);
 
-            // Right branch (W)
+            // Branch W (right)
             ctx.beginPath();
             ctx.moveTo(w/2 + 15, 85);
-            ctx.lineTo(500, 220);
+            ctx.lineTo(500, 200);
             ctx.stroke();
-            ctx.fillText('W', 430, 140);
+            ctx.fillText('W', (w/2 + 500)/2 + 60, 135);
 
-            // Left Player 2 node
+            // P2 after Z
+            ctx.font = 'bold 16px Arial';
             ctx.beginPath();
-            ctx.arc(200, 235, 20, 0, 2*Math.PI);
+            ctx.arc(200, 215, 20, 0, 2*Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.fillText('2', 200, 215);
+
+            // P2 after W
+            ctx.beginPath();
+            ctx.arc(500, 215, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.fillText('2', 500, 215);
+
+            // After Z: P2 → C (left) and D (right)
+            ctx.font = '14px Arial';
+            // C
+            ctx.beginPath();
+            ctx.moveTo(185, 230);
+            ctx.lineTo(120, 360);
+            ctx.stroke();
+            ctx.fillText('C', 140, 290);
+            // D
+            ctx.beginPath();
+            ctx.moveTo(215, 230);
+            ctx.lineTo(280, 360);
+            ctx.stroke();
+            ctx.fillText('D', 260, 290);
+
+            // Payoffs after Z
+            ctx.font = 'bold 15px Arial';
+            ctx.fillText('(6, 4)', 120, 385);
+            ctx.fillText('(3, 2)', 280, 385);
+
+            // After W: P2 → A (left) and B (right), then P1 (info set) → X/Y
+            ctx.font = '14px Arial';
+            // Edge to A
+            ctx.beginPath();
+            ctx.moveTo(485, 230);
+            ctx.lineTo(420, 320);
+            ctx.stroke();
+            ctx.fillText('A', 445, 275);
+            // Edge to B
+            ctx.beginPath();
+            ctx.moveTo(515, 230);
+            ctx.lineTo(580, 320);
+            ctx.stroke();
+            ctx.fillText('B', 555, 275);
+
+            // P1 node after A
+            ctx.beginPath();
+            ctx.arc(420, 335, 20, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
             ctx.stroke();
             ctx.fillStyle = 'black';
             ctx.font = 'bold 16px Arial';
-            ctx.fillText('2', 200, 235);
+            ctx.fillText('1', 420, 335);
 
-            // Right Player 2 node
+            // P1 node after B
             ctx.beginPath();
-            ctx.arc(500, 235, 20, 0, 2*Math.PI);
+            ctx.arc(580, 335, 20, 0, 2*Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
             ctx.stroke();
             ctx.fillStyle = 'black';
-            ctx.fillText('2', 500, 235);
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('1', 580, 335);
 
-            // Left Player 2's branches (A and B)
+            // Information set connecting the two P1 nodes
+            ctx.setLineDash([6,6]);
             ctx.beginPath();
-            ctx.moveTo(185, 250);
-            ctx.lineTo(120, 380);
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.ellipse(500, 335, 95, 28, 0, 0, 2*Math.PI);
             ctx.stroke();
-            ctx.fillStyle = 'black';
+            ctx.setLineDash([]);
+            ctx.font = 'bold 12px Arial';
+            ctx.fillText('P1 information set', 500, 300);
+
+            // From P1 after A: X (left), Y (right)
             ctx.font = '14px Arial';
-            ctx.fillText('A', 140, 310);
-
             ctx.beginPath();
-            ctx.moveTo(215, 250);
-            ctx.lineTo(280, 380);
+            ctx.moveTo(405, 350);
+            ctx.lineTo(360, 430);
             ctx.stroke();
-            ctx.fillText('B', 260, 310);
-
-            // Right Player 2's branches (C and D)
+            ctx.fillText('X', 375, 385);
             ctx.beginPath();
-            ctx.moveTo(485, 250);
-            ctx.lineTo(420, 380);
+            ctx.moveTo(435, 350);
+            ctx.lineTo(480, 430);
             ctx.stroke();
-            ctx.fillText('C', 440, 310);
+            ctx.fillText('Y', 465, 385);
 
+            // From P1 after B: X (left), Y (right)
             ctx.beginPath();
-            ctx.moveTo(515, 250);
-            ctx.lineTo(580, 380);
+            ctx.moveTo(565, 350);
+            ctx.lineTo(520, 430);
             ctx.stroke();
-            ctx.fillText('D', 560, 310);
+            ctx.fillText('X', 540, 385);
+            ctx.beginPath();
+            ctx.moveTo(595, 350);
+            ctx.lineTo(640, 430);
+            ctx.stroke();
+            ctx.fillText('Y', 625, 385);
 
-            // Terminal payoffs
-            ctx.fillStyle = 'black';
+            // Payoffs under W
             ctx.font = 'bold 15px Arial';
-            ctx.fillText('(6, 4)', 120, 410);
-            ctx.fillText('(3, 2)', 280, 410);
-            ctx.fillText('(4, 6)', 420, 410);
-            ctx.fillText('(2, 1)', 580, 410);
+            ctx.fillText('(3, 0)', 360, 455); // (A,X)
+            ctx.fillText('(8, 5)', 480, 455); // (A,Y)
+            ctx.fillText('(4, 6)', 520, 455); // (B,X)
+            ctx.fillText('(2, 1)', 640, 455); // (B,Y)
+
+            ctx.restore();
         }
 
         // Tree 3: No Pure Nash
