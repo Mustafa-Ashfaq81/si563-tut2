@@ -126,33 +126,32 @@
     <h1>SI 563 Tutorial 2</h1>
     
     <div class="problem-container">
-        <h2>Problem 1: Identical Payoffs Case (20 points)</h2>
+        <h2>Problem 1: Information Sets and Multiple SPNE (20 points)</h2>
         
         <div class="question-text">
-            <p>Consider the following sequential game represented by the game tree below:</p>
+            <p>Consider the following extensive-form game with imperfect information:</p>
         </div>
         
-        <canvas id="tree1" width="600" height="450"></canvas>
+        <canvas id="tree1" width="700" height="500"></canvas>
         
         <div class="question-text">
             <p><strong>Game Description:</strong></p>
             <ul>
-                <li>Player 1 moves first and chooses either <strong>L</strong> (left) or <strong>R</strong> (right)</li>
-                <li>If Player 1 chooses <strong>R</strong>, the game ends with payoffs <strong>(1, 1)</strong></li>
-                <li>If Player 1 chooses <strong>L</strong>, Player 2 observes this choice and then chooses either <strong>U</strong> (up) or <strong>D</strong> (down)</li>
-                <li>If Player 2 chooses <strong>U</strong>, the payoffs are <strong>(1, 2)</strong></li>
-                <li>If Player 2 chooses <strong>D</strong>, the payoffs are <strong>(1, 0)</strong></li>
+                <li>Player 1 moves first and chooses either <strong>M</strong> or <strong>N</strong></li>
+                <li>If Player 1 chooses <strong>N</strong>, the game ends with payoffs <strong>(1, 1)</strong></li>
+                <li>If Player 1 chooses <strong>M</strong>, Player 1 moves again and chooses either <strong>L</strong> or <strong>R</strong></li>
+                <li>After Player 1's second move (L or R), Player 2 chooses either <strong>U</strong> or <strong>D</strong></li>
+                <li>Player 2 has imperfect information - they don't know whether Player 1 chose L or R</li>
                 <li>Payoffs are written as (Player 1, Player 2)</li>
             </ul>
         </div>
         
         <div class="tasks">
             <h3>Tasks:</h3>
-            <p><strong>(a)</strong> Identify all subgames in this game tree. (4 points)</p>
-            <p><strong>(b)</strong> Use backward induction to solve for the Subgame Perfect Nash Equilibrium (SPNE). Show your work clearly. (8 points)</p>
-            <p><strong>(c)</strong> State the complete SPNE strategy profile for both players. (4 points)</p>
-            <p><strong>(d)</strong> What are the equilibrium payoffs? (2 points)</p>
-            <p><strong>(e)</strong> Is there a Nash equilibrium of the entire game that is NOT subgame perfect? If so, identify it and explain why it's not subgame perfect. (2 points)</p>
+            <p><strong>(a)</strong> Identify all subgames in this game tree. (3 points)</p>
+            <p><strong>(b)</strong> Find the Nash equilibrium of the subgame that starts after Player 1 chooses M. Show the normal form representation. (6 points)</p>
+            <p><strong>(c)</strong> Use backward induction to find all Subgame Perfect Nash Equilibria (SPNE). Show your reasoning. (8 points)</p>
+            <p><strong>(d)</strong> State the complete SPNE strategy profiles. (3 points)</p>
         </div>
         
         <button class="answer-button" onclick="toggleAnswer('answer1')">Show/Hide Answer</button>
@@ -161,55 +160,87 @@
             <h3>Solution to Problem 1:</h3>
             
             <p><strong>(a) Subgames:</strong></p>
-            <p>There are <strong>2 subgames (1 proper subgame)</strong>:</p>
+            <p>There are <strong>2 subgames</strong>:</p>
             <ul>
                 <li>The entire game (starting at Player 1's initial node)</li>
-                <li>The proper subgame starting at Player 2's decision node (after Player 1 chooses L)</li>
+                <li>The subgame starting after Player 1 chooses M (the simultaneous-move subgame between Player 1's second move and Player 2's move)</li>
             </ul>
             
-            <p><strong>(b) Backward Induction:</strong></p>
-            <p><strong>Stage 2 (Player 2's subgame after L):</strong></p>
-            <p>Player 2 compares:</p>
+            <p><strong>(b) Normal Form Representation of the Subgame:</strong></p>
+            <p>The subgame that starts after Player 1 chooses M is a simultaneous-move game between Player 1 (choosing L or R) and Player 2 (choosing U or D).</p>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <table style="margin: 0 auto; border-collapse: collapse; font-size: 16px;">
+                    <tr>
+                        <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;"></td>
+                        <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: U</td>
+                        <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: D</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: L</td>
+                        <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #e8f5e9;">(1, 2)</td>
+                        <td style="border: 2px solid #333; padding: 15px; text-align: center;">(3, 0)</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: R</td>
+                        <td style="border: 2px solid #333; padding: 15px; text-align: center;">(1, 0)</td>
+                        <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #fff3e0;">(2, 2)</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <p><strong>Finding Nash Equilibrium in the Subgame:</strong></p>
+            <p><strong>Player 2's best responses:</strong></p>
             <ul>
-                <li>Choosing U: payoff = 2</li>
-                <li>Choosing D: payoff = 0</li>
+                <li>If Player 1 chooses L: Player 2 compares U (payoff 2) vs D (payoff 0) → Player 2 chooses <strong>U</strong></li>
+                <li>If Player 1 chooses R: Player 2 compares U (payoff 0) vs D (payoff 2) → Player 2 chooses <strong>D</strong></li>
             </ul>
-            <p>Since 2 > 0, Player 2's best response is <strong>U</strong>.</p>
             
-            <p><strong>Stage 1 (Player 1's choice):</strong></p>
-            <p>Knowing Player 2 will choose U if the subgame is reached, Player 1 compares:</p>
+            <p><strong>Player 1's best responses:</strong></p>
             <ul>
-                <li>Choosing L: leads to (1, 2) after Player 2 chooses U → payoff = 1</li>
-                <li>Choosing R: leads directly to (1, 1) → payoff = 1</li>
+                <li>If Player 2 chooses U: Player 1 compares L (payoff 1) vs R (payoff 1) → Player 1 is indifferent, both give payoff 1</li>
+                <li>If Player 2 chooses D: Player 1 compares L (payoff 3) vs R (payoff 2) → Player 1 chooses <strong>L</strong></li>
             </ul>
-            <p>Player 1 is <strong>indifferent</strong> between L and R (both give payoff 1). However, both are part of valid SPNEs.</p>
             
-            <p><strong>(c) SPNE Strategy Profile:</strong></p>
-            <p>There are <strong>two SPNEs</strong>:</p>
+            <p><strong>Subgame Nash Equilibrium:</strong> (L, U) with payoffs (1, 2)</p>
+            <p>This is the unique pure strategy Nash equilibrium in the subgame.</p>
+            
+            <p><strong>(c) Backward Induction for SPNE:</strong></p>
+            <p>Now that we know the subgame equilibrium is (L, U) with payoffs (1, 2), we work backwards:</p>
+            
+            <p><strong>Player 1's initial choice:</strong></p>
+            <p>Player 1 compares:</p>
             <ul>
-                <li><strong>SPNE 1:</strong> (L; U) - "Player 1 chooses L; Player 2 chooses U"</li>
-                <li><strong>SPNE 2:</strong> (R; U) - "Player 1 chooses R; Player 2 chooses U"</li>
+                <li>Choosing M: leads to subgame with payoffs (1, 2) → Player 1 gets <strong>1</strong></li>
+                <li>Choosing N: leads directly to (1, 1) → Player 1 gets <strong>1</strong></li>
             </ul>
-            <p>Note: Player 2's strategy must specify U because that's the best response in the subgame, even if the subgame is not reached on the equilibrium path.</p>
             
-            <p><strong>(d) Equilibrium Payoffs:</strong></p>
+            <p>Since Player 1 gets the same payoff (1) from both choices, Player 1 is <strong>indifferent</strong> between M and N.</p>
+            
+            <p><strong>Two SPNE exist:</strong></p>
             <ul>
-                <li>Under SPNE 1 (L; U): <strong>(1, 2)</strong></li>
-                <li>Under SPNE 2 (R; U): <strong>(1, 1)</strong></li>
+                <li><strong>SPNE 1:</strong> Player 1 chooses M, then L; Player 2 chooses U</li>
+                <li><strong>SPNE 2:</strong> Player 1 chooses N; Player 2 chooses U (off-equilibrium path)</li>
             </ul>
             
-            <p><strong>(e) Non-Subgame Perfect Nash Equilibrium:</strong></p>
-            <p><strong>Yes</strong>, there exists a Nash equilibrium that is NOT subgame perfect:</p>
-            <p><strong>(R; D)</strong> - "Player 1 chooses R; Player 2 chooses D"</p>
-            
-            <p><strong>Why it's a Nash Equilibrium:</strong></p>
+            <p><strong>(d) Complete SPNE Strategy Profiles:</strong></p>
+            <p><strong>SPNE 1:</strong> (M→L; U)</p>
             <ul>
-                <li>Given Player 2 plays D, Player 1's payoff from L is 1 (leading to (1,0)), and from R is 1. Player 1 is indifferent and has no incentive to deviate to L.</li>
-                <li>Given Player 1 plays R, the subgame is never reached, so Player 2's choice is irrelevant on the equilibrium path. D is a valid strategy (though not optimal if the subgame were reached).</li>
+                <li>Player 1: Choose M, then choose L</li>
+                <li>Player 2: Choose U</li>
+                <li>Equilibrium path: M → L → U</li>
+                <li>Equilibrium payoffs: (1, 2)</li>
             </ul>
             
-            <p><strong>Why it's NOT Subgame Perfect:</strong></p>
-            <p>In the subgame after L is chosen, Player 2's strategy D is <strong>not a best response</strong>. Choosing D gives Player 2 a payoff of 0, while choosing U gives 2. The strategy D involves a <strong>non-credible threat</strong>—Player 2 threatens to play D to deter Player 1 from choosing L, but if Player 1 actually chose L, Player 2 would prefer to play U. This violates the subgame perfection requirement that strategies must constitute a Nash equilibrium in every subgame.</p>
+            <p><strong>SPNE 2:</strong> (N; U)</p>
+            <ul>
+                <li>Player 1: Choose N</li>
+                <li>Player 2: Choose U (if subgame were reached)</li>
+                <li>Equilibrium path: N</li>
+                <li>Equilibrium payoffs: (1, 1)</li>
+            </ul>
+            
+            <p><strong>Key Insight:</strong> The existence of two SPNE arises because Player 1 receives the same payoff (1) from both initial choices, making Player 1 indifferent between M and N. This indifference creates multiple equilibrium outcomes.</p>
         </div>
     </div>
 
@@ -761,82 +792,149 @@
     </div>
 
     <script>
-        // Tree 1: Identical Payoffs
+        // Tree 1: Information Sets and Multiple SPNE
         function drawTree1(ctx, canvas) {
             const w = canvas.width;
             const h = canvas.height;
             
-            // Root node (Player 1) at top
+            // Root node (Player 1)
             ctx.beginPath();
-            ctx.arc(w/2, 60, 20, 0, 2*Math.PI);
+            ctx.arc(w/2, 80, 25, 0, 2*Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
             ctx.fillStyle = 'black';
-            ctx.font = 'bold 16px Arial';
+            ctx.font = 'bold 18px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('1', w/2, 60);
+            ctx.fillText('P1', w/2, 80);
 
-            // Left branch to Player 2
+            // N branch (right)
             ctx.beginPath();
-            ctx.moveTo(w/2 - 15, 75);
-            ctx.lineTo(200, 200);
+            ctx.moveTo(w/2 + 20, 100);
+            ctx.lineTo(600, 200);
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
-            
-            // Label L
             ctx.fillStyle = 'black';
-            ctx.font = '14px Arial';
-            ctx.fillText('L', 250, 120);
+            ctx.font = '16px Arial';
+            ctx.fillText('N', 650, 140);
 
-            // Right branch (R)
+            // M branch (left)
             ctx.beginPath();
-            ctx.moveTo(w/2 + 15, 75);
-            ctx.lineTo(400, 200);
+            ctx.moveTo(w/2 - 20, 100);
+            ctx.lineTo(200, 200);
             ctx.stroke();
-            
-            // Label R
-            ctx.fillText('R', 350, 120);
+            ctx.fillText('M', 250, 140);
 
-            // Player 2 node (left side)
+            // Terminal payoff for N
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('(1, 1)', 600, 230);
+
+            // Player 1's second decision node (after M)
             ctx.beginPath();
-            ctx.arc(200, 215, 20, 0, 2*Math.PI);
+            ctx.arc(200, 220, 25, 0, 2*Math.PI);
             ctx.fillStyle = 'white';
             ctx.fill();
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('P1', 200, 220);
+
+            // L branch (left)
+            ctx.beginPath();
+            ctx.moveTo(180, 240);
+            ctx.lineTo(100, 320);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText('L', 140, 270);
+
+            // R branch (right)
+            ctx.beginPath();
+            ctx.moveTo(220, 240);
+            ctx.lineTo(300, 320);
+            ctx.stroke();
+            ctx.fillText('R', 260, 270);
+
+            // Player 2 nodes (connected by information set)
+            // Left P2 node (after L)
+            ctx.beginPath();
+            ctx.arc(100, 340, 25, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.fillText('P2', 100, 340);
+
+            // Right P2 node (after R)
+            ctx.beginPath();
+            ctx.arc(300, 340, 25, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillText('P2', 300, 340);
+
+            // Information set (dashed oval connecting P2 nodes)
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([8, 8]);
+            ctx.beginPath();
+            ctx.ellipse(200, 340, 120, 30, 0, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Information set label
             ctx.fillStyle = 'black';
             ctx.font = 'bold 16px Arial';
-            ctx.fillText('2', 200, 215);
+            ctx.fillText('P2', 200, 320);
 
-            // Player 2's U branch
+            // Left P2's branches (U and D)
             ctx.beginPath();
-            ctx.moveTo(185, 230);
-            ctx.lineTo(120, 340);
+            ctx.moveTo(80, 360);
+            ctx.lineTo(50, 450);
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
             ctx.fillStyle = 'black';
-            ctx.font = '14px Arial';
-            ctx.fillText('U', 140, 280);
+            ctx.font = '16px Arial';
+            ctx.fillText('U', 70, 400);
 
-            // Player 2's D branch
             ctx.beginPath();
-            ctx.moveTo(215, 230);
-            ctx.lineTo(280, 340);
+            ctx.moveTo(120, 360);
+            ctx.lineTo(150, 450);
             ctx.stroke();
-            ctx.fillText('D', 260, 280);
+            ctx.fillText('D', 140, 400);
 
-            // Terminal nodes (payoffs)
-            ctx.font = 'bold 15px Arial';
-            ctx.fillText('(1, 2)', 120, 365);
-            ctx.fillText('(1, 0)', 280, 365);
-            ctx.fillText('(1, 1)', 400, 225);
+            // Right P2's branches (U and D)
+            ctx.beginPath();
+            ctx.moveTo(280, 360);
+            ctx.lineTo(250, 450);
+            ctx.stroke();
+            ctx.fillText('U', 270, 400);
+
+            ctx.beginPath();
+            ctx.moveTo(320, 360);
+            ctx.lineTo(350, 450);
+            ctx.stroke();
+            ctx.fillText('D', 340, 400);
+
+            // Terminal payoffs
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText('(1, 2)', 50, 470);
+            ctx.fillText('(3, 0)', 150, 470);
+            ctx.fillText('(1, 0)', 250, 470);
+            ctx.fillText('(2, 2)', 350, 470);
         }
 
         // Tree 2: Multiple Subgames
