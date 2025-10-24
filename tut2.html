@@ -160,10 +160,10 @@
             <h3>Solution to Problem 1:</h3>
             
             <p><strong>(a) Subgames:</strong></p>
-            <p>There are <strong>2 subgames</strong>:</p>
+            <p>There are <strong>2 subgames (1 proper subgame)</strong>:</p>
             <ul>
                 <li>The entire game (starting at Player 1's initial node)</li>
-                <li>The subgame starting after Player 1 chooses M (the simultaneous-move subgame between Player 1's second move and Player 2's move)</li>
+                <li>The proper subgame starting after Player 1 chooses M (the simultaneous-move subgame between Player 1's second move and Player 2's move)</li>
             </ul>
             
             <p><strong>(b) Normal Form Representation of the Subgame:</strong></p>
@@ -224,7 +224,7 @@
             </ul>
             
             <p><strong>(d) Complete SPNE Strategy Profiles:</strong></p>
-            <p><strong>SPNE 1:</strong> (M→L; U)</p>
+            <p><strong>SPNE 1:</strong> (M;L, U)</p>
             <ul>
                 <li>Player 1: Choose M, then choose L</li>
                 <li>Player 2: Choose U</li>
@@ -232,10 +232,10 @@
                 <li>Equilibrium payoffs: (1, 2)</li>
             </ul>
             
-            <p><strong>SPNE 2:</strong> (N; U)</p>
+            <p><strong>SPNE 2:</strong> (N;L,U)</p>
             <ul>
                 <li>Player 1: Choose N</li>
-                <li>Player 2: Choose U (if subgame were reached)</li>
+                <li>Player 2: Choose L if P1 chose L, choose U if P1 chose R (if subgame were reached)</li>
                 <li>Equilibrium path: N</li>
                 <li>Equilibrium payoffs: (1, 1)</li>
             </ul>
@@ -814,13 +814,13 @@
             // N branch (right)
             ctx.beginPath();
             ctx.moveTo(w/2 + 20, 100);
-            ctx.lineTo(600, 200);
+            ctx.lineTo(500, 200);
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 3;
             ctx.stroke();
             ctx.fillStyle = 'black';
             ctx.font = '16px Arial';
-            ctx.fillText('N', 650, 140);
+            ctx.fillText('N', 450, 140);
 
             // M branch (left)
             ctx.beginPath();
@@ -832,7 +832,7 @@
             // Terminal payoff for N
             ctx.fillStyle = 'black';
             ctx.font = 'bold 16px Arial';
-            ctx.fillText('(1, 1)', 600, 230);
+            ctx.fillText('(1, 1)', 500, 220);
 
             // Player 1's second decision node (after M)
             ctx.beginPath();
@@ -855,14 +855,14 @@
             ctx.stroke();
             ctx.fillStyle = 'black';
             ctx.font = '16px Arial';
-            ctx.fillText('L', 140, 270);
+            ctx.fillText('L', 135, 270);
 
             // R branch (right)
             ctx.beginPath();
             ctx.moveTo(220, 240);
             ctx.lineTo(300, 320);
             ctx.stroke();
-            ctx.fillText('R', 260, 270);
+            ctx.fillText('R', 265, 270);
 
             // Player 2 nodes (connected by information set)
             // Left P2 node (after L)
@@ -875,14 +875,21 @@
             ctx.stroke();
             ctx.fillStyle = 'black';
             ctx.font = 'bold 18px Arial';
-            ctx.fillText('P2', 100, 340);
+            // ctx.fillText('P2', 100, 340);
 
             // Right P2 node (after R)
             ctx.beginPath();
             ctx.arc(300, 340, 25, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
             ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
             ctx.stroke();
-            ctx.fillText('P2', 300, 340);
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            // ctx.fillText('P2', 300, 340);
 
             // Information set (dashed oval connecting P2 nodes)
             ctx.strokeStyle = 'black';
@@ -896,7 +903,7 @@
             // Information set label
             ctx.fillStyle = 'black';
             ctx.font = 'bold 16px Arial';
-            ctx.fillText('P2', 200, 320);
+            ctx.fillText('P2', 200, 340);
 
             // Left P2's branches (U and D)
             ctx.beginPath();
@@ -907,26 +914,26 @@
             ctx.stroke();
             ctx.fillStyle = 'black';
             ctx.font = '16px Arial';
-            ctx.fillText('U', 70, 400);
+            ctx.fillText('U', 55, 400);
 
             ctx.beginPath();
             ctx.moveTo(120, 360);
             ctx.lineTo(150, 450);
             ctx.stroke();
-            ctx.fillText('D', 140, 400);
+            ctx.fillText('D', 145, 400);
 
             // Right P2's branches (U and D)
             ctx.beginPath();
             ctx.moveTo(280, 360);
             ctx.lineTo(250, 450);
             ctx.stroke();
-            ctx.fillText('U', 270, 400);
+            ctx.fillText('U', 255, 400);
 
             ctx.beginPath();
             ctx.moveTo(320, 360);
             ctx.lineTo(350, 450);
             ctx.stroke();
-            ctx.fillText('D', 340, 400);
+            ctx.fillText('D', 345, 400);
 
             // Terminal payoffs
             ctx.fillStyle = 'black';
