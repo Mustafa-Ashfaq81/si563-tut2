@@ -691,47 +691,28 @@
     </div>
 
     <div class="problem-container">
-        <h2>Problem 6: Infinitely Repeated Game and Discount Factor (40 points)</h2>
+        <h2>Problem 6: Farmers and Markets (15 points)</h2>
         
         <div class="question-text">
-            <p>Consider the following game played between two players infinitely:</p>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-            <table style="margin: 0 auto; border-collapse: collapse; font-size: 16px;">
-                <tr>
-                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;"></td>
-                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: A</td>
-                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold; text-align: center;">Player 2: B</td>
-                </tr>
-                <tr>
-                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: A</td>
-                    <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #e8f5e9;">(6, 6)</td>
-                    <td style="border: 2px solid #333; padding: 15px; text-align: center;">(0, 7)</td>
-                </tr>
-                <tr>
-                    <td style="border: 2px solid #333; padding: 15px; background: #f0f0f0; font-weight: bold;">Player 1: B</td>
-                    <td style="border: 2px solid #333; padding: 15px; text-align: center;">(7, 0)</td>
-                    <td style="border: 2px solid #333; padding: 15px; text-align: center; background: #fff3e0;">(3, 3)</td>
-                </tr>
-            </table>
+            <p>There are 25 farmers who must choose which of two markets to sell their produce at. At Market A, the total profit is given by g₁(M₁) = 14M₁ - M₁²/2 where M₁ is the number of farmers who select Market A. For Market B, the total profit is g₂(M₂) = 7M₂ where M₂ is the number of farmers who choose Market B. Assume that the total profit at a market is equally divided between all farmers who sell at that market. What is the Nash equilibrium?</p>
         </div>
         
         <div class="question-text">
-            <p><strong>Game Description:</strong></p>
+            <p><strong>Problem Details:</strong></p>
             <ul>
-                <li>This is a symmetric 2×2 game where both players can choose strategy A or B</li>
-                <li>Payoffs are written as (Player 1, Player 2)</li>
-                <li>The game is played infinitely with discount factor δ ∈ (0, 1)</li>
-                <li>Players receive discounted payoffs: π₁ + δπ₂ + δ²π₃ + δ³π₄ + ...</li>
+                <li><strong>Total farmers:</strong> 25</li>
+                <li><strong>Market A profit function:</strong> g₁(M₁) = 14M₁ - M₁²/2</li>
+                <li><strong>Market B profit function:</strong> g₂(M₂) = 7M₂</li>
+                <li><strong>Profit sharing:</strong> Total profit at each market is equally divided among farmers at that market</li>
+                <li><strong>Constraint:</strong> M₁ + M₂ = 25</li>
             </ul>
         </div>
         
         <div class="tasks">
             <h3>Tasks:</h3>
-            <p><strong>(a)</strong> Suppose this game is played forever. Construct a strategy where the players play (A,A) in every round and calculate a value of the discount factor δ that supports this. (25 points)</p>
-            <p><strong>(b)</strong> What is the minimum discount factor required to sustain cooperation (A,A) as a Subgame Perfect Nash Equilibrium? (10 points)</p>
-            <p><strong>(c)</strong> Explain the economic intuition behind your result. Why does the discount factor matter for sustaining cooperation? (5 points)</p>
+            <p><strong>(a)</strong> Derive the profit per farmer at each market as a function of the number of farmers. (5 points)</p>
+            <p><strong>(b)</strong> Find the Nash equilibrium by setting the profits equal. Show your work. (8 points)</p>
+            <p><strong>(c)</strong> Verify your answer by checking that no farmer wants to switch markets. (2 points)</p>
         </div>
         
         <button class="answer-button" onclick="toggleAnswer('answer6')">Show/Hide Answer</button>
@@ -739,54 +720,43 @@
         <div id="answer6" class="answer-section">
             <h3>Solution to Problem 6:</h3>
             
-            <p><strong>(a) Strategy Construction and Discount Factor Calculation:</strong></p>
+            <p><strong>(a) Profit per Farmer at Each Market:</strong></p>
             
-            <p><strong>Strategy:</strong> Both players play A in every round, with the following punishment mechanism:</p>
-            <ul>
-                <li>If both players have always played A, continue playing A</li>
-                <li>If any player deviates from A, both players switch to playing (B,B) forever (grim trigger strategy)</li>
-            </ul>
+            <p><strong>Market A:</strong></p>
+            <p>Total profit: g₁(M₁) = 14M₁ - M₁²/2</p>
+            <p>Profit per farmer: g₁(M₁)/M₁ = (14M₁ - M₁²/2)/M₁ = 14 - M₁/2</p>
             
-            <p><strong>Since it's a symmetric game, both players will have the same discount factor δ.</strong></p>
+            <p><strong>Market B:</strong></p>
+            <p>Total profit: g₂(M₂) = 7M₂</p>
+            <p>Profit per farmer: g₂(M₂)/M₂ = 7M₂/M₂ = 7</p>
             
-            <p><strong>No Deviation Payoff:</strong></p>
-            <p>If both players stick to (A,A) in every round:</p>
-            <p>Total discounted payoff = 6 + δ·6 + δ²·6 + δ³·6 + ...</p>
-            <p>This is an infinite geometric series: 6(1 + δ + δ² + δ³ + ...)</p>
-            <p>Using the formula for infinite geometric series: <strong>6/(1-δ)</strong></p>
+            <p><strong>(b) Finding the Nash Equilibrium:</strong></p>
             
-            <p><strong>Deviation Payoff:</strong></p>
-            <p>If a player deviates once (plays B while opponent plays A), then both players play (B,B) forever:</p>
-            <p>Deviation payoff = 7 + δ·3 + δ²·3 + δ³·3 + ...</p>
-            <p>This equals: 7 + δ·3(1 + δ + δ² + ...)</p>
-            <p>Using the geometric series formula: <strong>7 + 3δ/(1-δ)</strong></p>
+            <p>The system will be in Nash equilibrium if no farmer wants to switch markets. This occurs when the profit per farmer is equal at both markets.</p>
             
-            <p><strong>SPNE Condition:</strong></p>
-            <p>For (A,A) to be a Subgame Perfect Nash Equilibrium, the payoff from not deviating must be at least as good as deviating:</p>
-            <p><strong>6/(1-δ) ≥ 7 + 3δ/(1-δ)</strong></p>
+            <p>Set the profits equal:</p>
+            <p>14 - M₁/2 = 7</p>
+            <p>14 - 7 = M₁/2</p>
+            <p>7 = M₁/2</p>
+            <p><strong>M₁ = 14</strong></p>
             
-            <p><strong>Solving for δ:</strong></p>
-            <p>Multiply both sides by (1-δ):</p>
-            <p>6 ≥ 7(1-δ) + 3δ</p>
-            <p>6 ≥ 7 - 7δ + 3δ</p>
-            <p>6 ≥ 7 - 4δ</p>
-            <p>4δ ≥ 1</p>
-            <p><strong>δ ≥ 1/4</strong></p>
+            <p>Since there are 25 farmers total:</p>
+            <p>M₂ = 25 - M₁ = 25 - 14 = <strong>11</strong></p>
             
-            <p><strong>Conclusion:</strong> The strategy (A,A) in every round is a Subgame Perfect Nash Equilibrium if and only if δ ≥ 1/4.</p>
+            <p><strong>(c) Verification:</strong></p>
             
-            <p><strong>(b) Minimum Discount Factor:</strong></p>
-            <p>The minimum discount factor required to sustain cooperation (A,A) as a SPNE is <strong>δ = 1/4 = 0.25</strong>.</p>
+            <p><strong>Profit per farmer at Market A:</strong></p>
+            <p>14 - M₁/2 = 14 - 14/2 = 14 - 7 = <strong>7</strong></p>
             
-            <p><strong>(c) Economic Intuition:</strong></p>
-            <p>The discount factor δ represents how much players value future payoffs relative to current payoffs:</p>
-            <ul>
-                <li><strong>High δ (close to 1):</strong> Players highly value future payoffs, making cooperation sustainable</li>
-                <li><strong>Low δ (close to 0):</strong> Players heavily discount the future, making immediate deviation attractive</li>
-                <li><strong>δ ≥ 1/4:</strong> The future benefits of cooperation (6 per period) outweigh the immediate gain from deviation (7) minus the future cost of punishment (3 per period)</li>
-            </ul>
+            <p><strong>Profit per farmer at Market B:</strong></p>
+            <p>7</p>
             
-            <p><strong>Key Insight:</strong> Cooperation is sustainable when players care enough about the future to make the long-term benefits of cooperation exceed the short-term gains from deviation.</p>
+            <p>Since the profits are equal (7 = 7), no farmer wants to switch markets.</p>
+            
+            <p><strong>Answer:</strong> M₁ = 14 and M₂ = 11 is the Nash equilibrium.</p>
+            
+            <p><strong>Economic Interpretation:</strong></p>
+            <p>At equilibrium, 14 farmers choose Market A and 11 farmers choose Market B. Each farmer earns a profit of 7, regardless of which market they choose. This equalization of profits ensures that no individual farmer has an incentive to switch markets, making this allocation a Nash equilibrium.</p>
         </div>
     </div>
 
