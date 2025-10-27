@@ -281,7 +281,6 @@
             <p><strong>(b)</strong> For each proper subgame, find the Nash equilibrium. Show best-response reasoning. (8 points)</p>
             <p><strong>(c)</strong> Use backward induction to find the SPNE(s) of the entire game. (7 points)</p>
             <p><strong>(d)</strong> State complete SPNE strategy profiles in the form: (P1 initial; P2 after Z; P2 after W; P1’s action at the W-information-set). (3 points)</p>
-            <p><strong>(e)</strong> Give the equilibrium payoffs on the equilibrium path for each SPNE. (2 points)</p>
         </div>
         
         <button class="answer-button" onclick="toggleAnswer('answer2')">Show/Hide Answer</button>
@@ -289,7 +288,7 @@
         <div id="answer2" class="answer-section">
             <h3>Solution to Problem 2:</h3>
             
-            <p><strong>(a) Subgames:</strong></p>
+            <p><strong>(a) 3 Subgames:</strong></p>
             <ul>
                 <li>The entire game (root).</li>
                 <li><strong>Proper Subgame 1</strong> (after <strong>Z</strong>): P2 chooses C or D.</li>
@@ -311,34 +310,22 @@
                     <li>If P2 plays <strong>B</strong>, P1 prefers <strong>X</strong> (4 &gt; 2).</li>
                 </ul>
                 <p><strong>⇒ Two pure-strategy NE:</strong> <strong>(A,Y)</strong> with payoffs <strong>(8,5)</strong>, and <strong>(B,X)</strong> with payoffs <strong>(4,6)</strong>.</p>
-                <p>(There is also a mixed NE: P2 plays A with <strong>2/7</strong> and B with <strong>5/7</strong>; P1 plays X with <strong>2/5</strong> and Y with <strong>3/5</strong>. Expected payoffs: P1 = <strong>26/7 ≈ 3.714</strong>, P2 = <strong>3</strong>.)</p>
             </div>
 
             <p><strong>(c) Backward induction (visual cases):</strong></p>
             <div class="tasks">
                 <p><strong>Case 1 — Subgame 2 continues at (B,X):</strong> continuation payoff under W is <strong>(4,6)</strong>. Compare with Z→C = <strong>(6,4)</strong>. Player 1 prefers <strong>Z</strong> (6 &gt; 4).</p>
                 <p><strong>Case 2 — Subgame 2 continues at (A,Y):</strong> continuation payoff under W is <strong>(8,5)</strong>. Player 1 prefers <strong>W</strong> (8 &gt; 6).</p>
-                <p><strong>Case 3 — Subgame 2 uses the mixed NE:</strong> continuation payoff under W is <strong>(26/7, 3)</strong> ≈ <strong>(3.714, 3)</strong>. Player 1 prefers <strong>Z</strong> (6 &gt; 3.714).</p>
             </div>
 
             <p><strong>(d) Complete SPNE strategy profiles:</strong></p>
             <ul>
                 <li><strong>SPNE-A (when Subgame 2 selects (B,X)):</strong> <br>
-                    <strong>(Z; C; B; X)</strong> &nbsp;&nbsp;→ Equilibrium path: Z → C; payoffs <strong>(6,4)</strong>.
+                    <strong>(Z;X, C;B)</strong> &nbsp;&nbsp;→ Equilibrium path: Z → C; payoffs <strong>(6,4)</strong>.
                 </li>
                 <li><strong>SPNE-B (when Subgame 2 selects (A,Y)):</strong> <br>
-                    <strong>(W; C; A; Y)</strong> &nbsp;&nbsp;→ Equilibrium path: W → A → Y; payoffs <strong>(8,5)</strong>.
+                    <strong>(W;Y, C;A)</strong> &nbsp;&nbsp;→ Equilibrium path: W → A → Y; payoffs <strong>(8,5)</strong>.
                 </li>
-                <li><strong>SPNE-C (when Subgame 2 uses the mixed NE):</strong> <br>
-                    <strong>(Z; C; A with 2/7 &amp; B with 5/7; X with 2/5 &amp; Y with 3/5)</strong> &nbsp;&nbsp;→ Equilibrium path: Z → C; payoffs <strong>(6,4)</strong>.
-                </li>
-            </ul>
-
-            <p><strong>(e) Equilibrium payoffs on the path:</strong></p>
-            <ul>
-                <li>SPNE-A: <strong>(6,4)</strong></li>
-                <li>SPNE-B: <strong>(8,5)</strong></li>
-                <li>SPNE-C: <strong>(6,4)</strong></li>
             </ul>
         </div>
     </div>
